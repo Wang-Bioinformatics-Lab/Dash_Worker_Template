@@ -18,30 +18,30 @@ services:
       LETSENCRYPT_HOST: template.ucsd.edu
       LETSENCRYPT_EMAIL: miw023@ucsd.edu
 
-  template-worker:
+  template-dash-worker:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: template-worker
+    container_name: template-dash-worker
     volumes:
       - ./logs:/app/logs:rw
     command: /app/run_worker.sh
     restart: unless-stopped
     depends_on: 
-      - template-redis
-      - template-rabbitmq
+      - template-dash-redis
+      - template-dash-rabbitmq
     networks:
       - default
       - nginx-net
 
-  template-rabbitmq:
-    container_name: template-rabbitmq
+  template-dash-rabbitmq:
+    container_name: template-dash-rabbitmq
     image: rabbitmq
     networks:
       - default
 
-  template-redis:
-    container_name: template-redis
+  template-dash-redis:
+    container_name: template-dash-redis
     image: redis
     networks:
       - default
